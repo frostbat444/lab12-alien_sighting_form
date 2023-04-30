@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+
+
+  #red, #green, #blue {
+    float: left;
+    clear: left;
+    width: 300px;
+    margin: 15px;
+  }
+  #swatch {
+    width: 120px;
+    height: 100px;
+    margin-top: 18px;
+    margin-left: 350px;
+    background-image: none;
+  }
+  #red .ui-slider-range { background: #ef2929; }
+  #red .ui-slider-handle { border-color: #ef2929; }
+  #green .ui-slider-range { background: #8ae234; }
+  #green .ui-slider-handle { border-color: #8ae234; }
+  #blue .ui-slider-range { background: #729fcf; }
+  #blue .ui-slider-handle { border-color: #729fcf; }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    function hexFromRGB(r, g, b) {
+      var hex = [
+        r.toString( 16 ),
+        g.toString( 16 ),
+        b.toString( 16 )
+      ];
+      $.each( hex, function( nr, val ) {
+        if ( val.length === 1 ) {
+          hex[ nr ] = "0" + val;
+        }
+      });
+      return hex.join( "" ).toUpperCase();
+    }
+    function refreshSwatch() {
+      var red = $( "#red" ).slider( "value" ),
+        green = $( "#green" ).slider( "value" ),
+        blue = $( "#blue" ).slider( "value" ),
+        hex = hexFromRGB( red, green, blue );
+      $( "#swatch" ).css( "background-color", "#" + hex );
+    }
+ 
+    $( "#red, #green, #blue" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      max: 255,
+      value: 127,
+      slide: refreshSwatch,
+      change: refreshSwatch
+    });
+    $( "#red" ).slider( "value", 255 );
+    $( "#green" ).slider( "value", 140 );
+    $( "#blue" ).slider( "value", 60 );
+  } );
+  </script>
+	</style>
+</head>
+<body>
+
+<h1>Alien Sighting Form</h1>
+
+<!-- Datepicker -->
+<h2 class="demoHeaders">Sighting Date</h2>
+<div id="datepicker"></div>
+
+<!-- Checkboxradio -->
+<h2 class="demoHeaders">Creature Type</h2>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Sponge-Like</label>
+		<input type="radio" id="radio2" name="radio"><label for="radio2">Worm-Like</label>
+		<input type="radio" id="radio3" name="radio"><label for="radio3">Insect-Like</label>
+		<input type="radio" id="radio4" name="radio"><label for="radio4">Fish-Like</label>
+		<input type="radio" id="radio5" name="radio"><label for="radio5">Bird-Like</label>
+	</div>
+</form>
+
+<!-- Slider -->
+<h2 class="demoHeaders">Alien Height (ft)</h2>
+<div id="slider"></div>
+
+<!-- Slider -->
+<h2 class="demoHeaders">Alien Weight (lbs)</h2>
+<div id="slider"></div>
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Eyes</h2>
+<input id="spinner">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Arms</h2>
+<input id="spinner">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Legs</h2>
+<input id="spinner">
+
+<body class="ui-widget-content" style="border:0;">
+ 
+	<p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
+	  <span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
+	  Color of Creature
+	</p>
+	 
+	<div id="red"></div>
+	<div id="green"></div>
+	<div id="blue"></div>
+	 
+	<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+
+	<br>
+	<br>
+
+<!-- Button -->
+<button id="button">Submit</button>
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+
+<!-- UI-dialog -->
+<div id="dialog" title="Thank you!">
+	<p style="font-family:roboto">Your sighting has been reported. <br> Keep watching!</br></p>
+	<div id="results"></div>
+</div>
+
+
+$( "#button" ).button();
+$( "#button-icon" ).button({
+	icon: "ui-icon-gear",
+	showLabel: false
+});
+
+$( "#radioset" ).buttonset();
+
+$( "#controlgroup" ).controlgroup();
+
+
+
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+$( "#slider" ).slider({
+	range: true,
+	values: [ 17, 67 ]
+});
+
+
+$( "#spinner" ).spinner();
+
+
+
+
+// Hover states on the static widgets
+$( "#dialog-link, #icons li" ).hover(
+	function() {
+		$( this ).addClass( "ui-state-hover" );
+	},
+	function() {
+		$( this ).removeClass( "ui-state-hover" );
+	}
+);
+
+$("#slide_me").slider({
+	slide: function(event, ui) {
+		$("#my_value").val(ui.value);
+	}
+});
+$("#my_value").val($("#slide_me").slider("value"));
+
+</script>
+</body>
+</html>
